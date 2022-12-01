@@ -1,0 +1,178 @@
+{include  file='public:header'/}
+<style>
+.admin-table-left { width: 200px;}
+.profit{ text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用功能</li>
+        <li class="li2 li3">功能设置</li>
+    </ul>
+</div>
+<div class="admin-main-cate">
+    <p class="admin-attention"><span>注意：</span>这里配置的是网站常用API微信：jintaocms</p>
+</div>       
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/config')}" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+            
+            
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 快递接口设置</td>
+                </tr>
+                
+                <tr>
+                    <td class="admin-table-left">快递接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[express_api_type]" class="admin-sc-add-text-name sogn">
+                            <option value="">请选择快递接口</option>
+                            <option {eq name="CONFIG.config.express_api_type" value="2"}selected="selected"{/eq} value="2">快递100企业接口</option>
+                            <option {eq name="CONFIG.config.express_api_type" value="3"}selected="selected"{/eq} value="3">快递鸟接口</option>
+                        </select>
+					    <code>请先选择接口类型然后再填写快递100的api，接口设置微信tudoucms</code>
+                    </td>
+                </tr>   
+                <tr>
+                    <td class="admin-table-left" >快递100key/customer：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[express_api_key]" value="{$CONFIG.config.express_api_key}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写KEY</code>
+                        <input type="text" name="data[express_api_customer]" value="{$CONFIG.config.express_api_customer}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写customer,免费版本接口无需填写customer  接口申请：<a href="https://www.kuaidi100.com/openapi/applypoll.shtml" target="_blank">https://www.kuaidi100.com/openapi/applypoll.shtml</a></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >快递鸟物流查询api：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[niao_app_id]" value="{$CONFIG.config.niao_app_id}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写appid</code>
+                        <input type="text" name="data[niao_app_key]" value="{$CONFIG.config.niao_app_key}" class="admin-sc-add-text-name"/>
+                        <code>←这里填写appkey  接口申请：<a href="http://www.kdniao.com/UserCenter" target="_blank">http://www.kdniao.com/UserCenter</a></code>
+                    </td>
+                </tr>
+             
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2"> 选用高德地图</td>
+                </tr>
+                
+                 <tr>
+                    <td class="admin-table-left">网站地图选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[map]" class="admin-sc-add-text-name sogn">
+                            <option value="">请选择地图</option>
+                            <option {eq name="CONFIG.config.map" value="1"}selected="selected"{/eq} value="1">百度地图</option>
+                            <option {eq name="CONFIG.config.map" value="2"}selected="selected"{/eq} value="2">高德地图</option>
+                            <option {eq name="CONFIG.config.map" value="3"}selected="selected"{/eq} value="3">腾讯地图</option>
+                            <option {eq name="CONFIG.config.map" value="4"}selected="selected"{/eq} value="4">谷歌地图</option>
+                        </select>
+					    <code>新版必须选择地图，否则失效，一旦选择数据将不可逆更改，请第一次就选择好地图，否则中途更换地图后数据混乱后概不负责</code>
+                    </td>
+                </tr>  
+                
+                
+                <tr>
+                    <td  class="admin-table-left" >百度LBS地图API接口：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[baidu_map_api]" value="{$CONFIG.config.baidu_map_api}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        	接口申请 
+                            <a href="http://lbsyun.baidu.com/" target="_blank">http://lbsyun.baidu.com</a> 
+                            由于百度最新必须是https所以这里可配置百度地图接口，默认连接：https://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8
+                        </code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td  class="admin-table-left" >高德地图KEY：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[amap_map_api]" value="{$CONFIG.config.amap_map_api}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        	接口申请 
+                            <a href="http://lbs.amap.com/dev/key/app" target="_blank">http://lbs.amap.com/dev/key/app</a> 
+                            默认KEY：e17c8c7648b49bf5a85663cab16de375
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >高德地图webservice：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[map_webservice_key]" value="{$CONFIG.config.map_webservice_key}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>调度中心使用webservice</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >高德地图javascript：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[map_javascript_key]" value="{$CONFIG.config.map_javascript_key}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>调度中心使用javascript</code>
+                    </td>
+                </tr>
+                
+                
+               
+                
+                <tr>
+                	<td class="admin-table-right profit" colspan="2">iconfont连接配置</td>
+                </tr>
+                
+                <tr>
+                    <td  class="admin-table-left" >iconfont连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[iconfont]" value="{$CONFIG.config.iconfont}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>
+                        配置您在iconfont网站申请的图标连接，用来显示全站图标
+                        <a target="_blank" href="http://www.iconfont.cn">点击申请</a>
+                        iocnfont连接是什么？
+                        <a id="getinonfont" class="admin-btn-small">查看默认连接</a> 
+                        </code>
+                    </td>
+                </tr>
+                
+                <script>
+				$(document).ready(function(){
+					$("#getinonfont").click(function(){
+						var url2 = "http://demo.yanjiu007.com/app/api/getInonfont";
+						var url = "{$CONFIG.site.host}";
+						var qq = "{$CONFIG.site.qq}";
+						$.ajax({
+							url: url2,
+							type: 'post',
+							data: 'url=' + url + '&qq=' + qq,
+							success: function(data){
+							  if(data.code == '1'){
+								 layer.alert(data.msg,{
+								  skin: 'layui-layer-molv',
+								  closeBtn: 0
+								});
+							  }else{
+								  layer.msg(data.msg,{icon:1})
+							  }
+							}
+						});
+					});
+				});
+				</script>
+                
+                 <tr>
+                    <td  class="admin-table-left" >iconfont2副连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[iconfont2]" value="{$CONFIG.config.iconfont2}" class="admin-sc-add-text-name admin-manage-input2"/>
+                        <code>不懂css的亲这里留空，这里你额外增加的css阿里云的iocnfont图标cnd连接放在这里，然后自己就可以在模板中调用了，这样您可以不管基础库的css</code>
+                    </td>
+                </tr>
+                
+               
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+
+
+
+{include  file='public:footer'/}      

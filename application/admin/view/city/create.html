@@ -1,0 +1,130 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+         <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('city/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+
+                <tr>
+                    <td class="admin-table-left">城市名称：</td>
+                    <td class="admin-table-right"><input type="text" name="data[name]" value="{$detail.name|default=''}" class="admin-manage-input"/>
+					<code>当前城市的名称</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">高德地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[areacode]" value="{$detail.areacode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">百度地区编码：</td>
+                    <td class="admin-table-right"><input type="text" name="data[CityCode]" value="{$detail.CityCode|default=''}" class="admin-manage-input"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">城市拼音：</td>
+                    <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input"/>
+					<code>不要用大写字母，这里是全部小写</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">管理账户：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="{$detail.user_id|default=''}" class="admin-manage-input"/>
+                            <input class="admin-sc-add-text-name sj" type="text" name="nickname" id="nickname"  value="{$user.nickname}"/>
+                        </div>
+                        <a mini="select"  w="920" h="600" href="{:url('user/select')}" class="admin-sele-xuanze">选择账户</a>
+                    </td>
+                </tr>
+
+            
+
+                 <tr>
+                    <td class="admin-table-left">城市LOGO：</td>
+                 <td class="admin-table-right">
+                    <div class="admin-table-right-div">
+                        <input type="hidden" name="data[photo]" value="{$detail.photo}" id="data_photo"/>
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div class="admin-table-right-div">
+                        <img id="photo_img" class="admin-table-right-img"  src="{:config_img($detail['photo'])}"/>
+                        <a href="{:url('setting/attachs')}">缩略图设置</a>
+                        建议尺寸{$CONFIG.attachs.city_logo.thumb}
+                    </div>
+                    <script>
+						var width = '{:thumbSize($CONFIG["attachs"]["city_logo"]["thumb"],0)}';
+						var height = '{:thumbSize($CONFIG["attachs"]["city_logo"]["thumb"],1)}';
+						var uploader = WebUploader.create({
+						auto: true,
+						swf: '/static/default/webuploader/Uploader.swf',
+						server: '{:url("app/upload/uploadify",array("model"=>"city_logo"))}',
+						pick: '#fileToUpload',
+						resize: true,
+						compress : {width:width,height:height,quality:100,allowMagnify:false,crop:true}
+					});
+					uploader.on('uploadSuccess',function(file,resporse){
+						$("#data_photo").val(resporse.url);
+						$("#photo_img").attr('src',resporse.url).show();
+					});
+					uploader.on('uploadError',function(file){
+						layer.msg('上传出错', {icon: 5});
+					});
+                    </script>
+                </td>
+            </tr>
+
+
+                 <tr>
+                    <td class="admin-table-left">首字母：</td>
+                    <td class="admin-table-right"><input type="text" name="data[first_letter]" value="{$detail.first_letter|default=''}" class="admin-manage-input"/>
+                        <code>大写字母</code>
+                    </td>
+                </tr>
+                  <tr>
+                    <td class="admin-table-left">城市中心坐标：</td>
+                    <td class="admin-table-right">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="{$detail.lng|default=''}" class="admin-sc-add-text-name w200" />
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="{$detail.lat|default=''}" class="admin-sc-add-text-name w200" />
+                        </div>
+                        <a style="margin-left: 10px;" mini="select"  w="880" h="630" href="{:url('index/maps')}" class="admin-sele-xuanze">选择地图</a>
+
+                </tr>
+
+
+                <tr>
+                    <td class="admin-table-left">排序：</td>
+                    <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                    &nbsp;&nbsp;<code>城市排序</code>
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="admin-table-left">是否启用：</td>
+                    <td class="admin-table-right">
+                        <label>
+                            <input type="radio" <?php if($detail['is_open'] == 0) echo "checked='checked'";?> name="data[is_open]" value="0"  />
+                                   不启用
+                        </label>
+                        <label>
+                            <input type="radio" <?php if($detail['is_open'] == 1) echo "checked='checked'";?> name="data[is_open]" value="1"  />
+                                   启用
+                        </label>
+                        &nbsp;&nbsp;<code>选择不启用后相当于关闭当前站点</code>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}

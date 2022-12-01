@@ -1,0 +1,39 @@
+				<tr>
+                    <td class="admin-table-left">其他操作：</td>
+                    <td class="admin-table-right">
+                        {if condition="$var['orderStatus'] eq 0"}
+                            {:BA('express/delete',array("id"=>$var["id"]),'删除','act','admin-btn-default')}
+                        {/if}
+                        {if condition="$var['orderStatus'] eq 1"}
+                           {:BA('express/deliver',array("id"=>$var["id"]),'发货','act','admin-btn-default')}
+                           {:BA('express/remove',array("id"=>$var["id"]),'取消订单1','act','admin-btn-default')}
+                        {/if}
+                        
+                        {if condition="$var['orderStatus'] eq 2"}
+                           {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+                           {:BA('express/remove',array("id"=>$var["id"]),'取消订单2','act','admin-btn-default')}
+                        {/if}
+                        
+                        {if condition="$var['orderStatus'] eq 3"}
+                           {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+                        {/if}
+                        {if condition="$var['orderStatus'] eq 4"}
+                           {:BA('express/complete',array("id"=>$var["id"]),'完成','act','admin-btn-default')}
+                        {/if}
+                        
+                        {if condition="$var['orderStatus'] eq 9"}
+                           {:BA('express/cancel',array("id"=>$var["id"]),'订单异常退款','act','admin-btn-default')}
+                        {/if}
+                     	{if condition="$var['orderStatus'] eq -1 AND $var['orderRightsStatus'] eq 1"}
+                           {:BA('express/cancel',array("id"=>$var["id"]),'确认退款','act','admin-btn-default')}
+                        {/if}
+                        
+                        
+                        {eq name="var.type" value="1"}
+                            <a target="_blank" href="{:url('app/express/checkOrder',array('id'=>$var['id']))}" class="admin-btn-small_quxiao">点击易达更新订单状态</a>
+                        {/eq}
+                        {eq name="var.type" value="2"}
+                            <a target="_blank" href="{:url('app/exp/checkOrder',array('id'=>$var['id']))}" class="admin-btn-small_quxiao">点击云洋更新订单状态</a>
+                        {/eq}
+                    </td>
+                </tr>

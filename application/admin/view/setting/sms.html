@@ -1,0 +1,201 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">短信设置</li>
+    </ul>
+</div>
+
+<style>
+	.admin-table-left,.sogn{ width:180px !important;}
+	.profit{text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
+	.sogn{width:120px; margin:5px 0;height: 30px;}
+</style>
+
+<form  target="x-frame" action="{:url('setting/sms')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+             	<tr>
+                	<td class="admin-table-right profit" colspan="2"> 短信接口选择qq 120,585022</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">短信接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[dxapi]"  class="admin-sc-add-text-name sogn jq_type">
+                        	<option value="0">=请选择短信接口=</option>
+                            <option value="dy" {if condition="$CONFIG['sms']['dxapi'] eq dy"}selected='selected'{/if}>大于【阿里云短信】短信</option>
+                            <option value="bo" {if condition="$CONFIG['sms']['dxapi'] eq bo"}selected='selected'{/if}>万能短信接口</option>
+                            <option value="ihuyi" {if condition="$CONFIG['sms']['dxapi'] eq ihuyi"}selected='selected'{/if}>互亿无线接口</option>
+                            <option value="qcloudsms" {if condition="$CONFIG['sms']['dxapi'] eq qcloudsms"}selected='selected'{/if}>腾讯云短信</option>
+                        </select>
+                        <code>接口选择，选择后保存，清理缓存方可生效</code></td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                	<td class="admin-table-right profit" colspan="2"> 下面是万能接口【短信宝】短信配置URL配置不会的请去论坛看教程，短信接口购买微信tudoucms</td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">万能短信接口URL：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[url]" value="{$CONFIG.sms.url}" style="width: 700px;" class="admin-sc-add-text-name"/>
+                        <code>填写短信服务商的HTTP请求接口，需要将发送给的人的参数替换成{mobile}，内容替换成{content}，记住前面不能留空格</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">内容编码：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[charset]" {eq name="CONFIG.sms.charset" value="1"}checked="checked"{/eq} value="1"/>GBK</label>
+                        <label><input type="radio" name="data[charset]"  {eq name="CONFIG.sms.charset" value="0"}checked="checked"{/eq}  value="0"/>UTF-8</label>
+                        <code>如果短信那边编码是GBK 就需要选择GBK，短信宝默认UTF-8</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">短信请求模式：</td>
+                    <td class="admin-table-right">
+                        <label><input type="radio" name="data[curl]" {eq name="CONFIG.sms.curl" value="get"}checked="checked"{/eq} value="get"/>get</label>
+                        <label><input type="radio" name="data[curl]" {eq name="CONFIG.sms.curl" value="file"}checked="checked"{/eq}  value="file"/>file</label>
+                        <code>如果收不到短信请选择get模式更加稳定</code>
+                    </td>
+                </tr>
+
+
+                <tr class="jq_type_bo">
+                 <td class="admin-table-left">短信宝信息：</td>
+                 <td class="admin-table-right">短信宝账户： <input type="text" name="data[sms_bao_account]" value="{$CONFIG.sms.sms_bao_account}" class="admin-sc-add-text-name sogn" />
+                 &nbsp;&nbsp;短信宝密码：  <input type="text" name="data[sms_bao_password]" value="{$CONFIG.sms.sms_bao_password}" class="admin-sc-add-text-name sogn" />
+                 <code>这里写短信宝的账户密码，记得不要有空格哦！填写这里的原因是可以查询短信宝账户的余额，非短信宝用户不要填写，记住这里跟上面的万能短信接口没有关联！</code></td>
+                </tr>
+                <tr class="jq_type_bo">
+                    <td class="admin-table-left">成功状态值：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[code]" value="{$CONFIG.sms.code}"  class="admin-sc-add-text-name sogn" />
+                        <code>填写对方HTTP接口请求的正确返回值，<a style="color:#F00;font-weight:bold;font-size:18px;">当前短信宝剩余短信数量：{$number}</a></code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_dy">
+                	<td class="admin-table-right profit" colspan="2"> 下面是大于【阿里云】短信配置，注意，签名要跟站点名称一致</td>
+                </tr>
+
+                <tr class="jq_type_dy">
+                    <td class="admin-table-left">大于短信【阿里云】签名：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[sign]" value="{$CONFIG.sms.sign}"  class="admin-sc-add-text-name " />
+                        <code>填写您在大鱼【阿里云】官方申请的短信签名，建议跟站点名称一致</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_dy">
+                    <td class="admin-table-left">大鱼【阿里云】版本：</td>
+                    <td class="admin-table-right">
+                        <select name="data[dayu_version]"  class="admin-sc-add-text-name sogn">
+                        	<option value="0" {if condition="$CONFIG['sms']['dayu_version'] eq 0"}selected='selected'{/if} >请选择接口</option>
+                            <option value="1" {if condition="$CONFIG['sms']['dayu_version'] eq 1"}selected='selected'{/if} >旧版接口</option>
+                            <option value="2" {if condition="$CONFIG['sms']['dayu_version'] eq 2"}selected='selected'{/if} >新版接口【阿里云】</option>
+                        </select>
+                </tr>
+
+                <tr class="jq_type_dy">
+                    <td class="admin-table-left">大于【阿里云】短信：</td>
+                    <td class="admin-table-right">Key: <input type="text" name="data[dykey]" value="{$CONFIG.sms.dykey}" class="admin-sc-add-text-name " />
+                    &nbsp;&nbsp;Secret: <input type="text" name="data[dysecret]" value="{$CONFIG.sms.dysecret}" class="admin-sc-add-text-name " />
+<!--                    <code>大于【阿里云】短信配置<a href="http://www.hatudou.com/11341.html">点我查看教程</a></code></td>-->
+                </tr>
+
+
+
+                <tr class="jq_type_ihuyi">
+                	<td class="admin-table-right profit" colspan="2"> 互亿无线短信发送接口</td>
+                </tr>
+                <tr class="jq_type_ihuyi">
+                    <td class="admin-table-left">互亿无线国内短信：</td>
+                    <td class="admin-table-right">
+                    appid1: <input type="text" name="data[appid1]" value="{$CONFIG.sms.appid1}" class="admin-sc-add-text-name"/>
+                    &nbsp;&nbsp;apikey1: <input type="text" name="data[apikey1]" value="{$CONFIG.sms.apikey1}" class="admin-sc-add-text-name"/>
+                </tr>
+                <tr class="jq_type_ihuyi">
+                    <td class="admin-table-left">互亿无线国际短信：</td>
+                    <td class="admin-table-right">
+                    appid2: <input type="text" name="data[appid2]" value="{$CONFIG.sms.appid2}" class="admin-sc-add-text-name"/>
+                    &nbsp;&nbsp;apikey2: <input type="text" name="data[apikey2]" value="{$CONFIG.sms.apikey2}" class="admin-sc-add-text-name"/>
+                </tr>
+                <tr class="jq_type_ihuyi">
+                    <td class="admin-table-left">互亿无线默认国家编码：</td>
+                    <td class="admin-table-right">
+                    <input type="text" name="data[areaCode]" value="{$CONFIG.sms.areaCode}" class="admin-sc-add-text-name w80"/>
+                    <code>比如中国填写86</code>
+                </tr>
+
+                <tr class="jq_type_dy">
+                	<td class="tu-right-td profit" colspan="2"> 下面是大鱼短信配置，注意，签名要跟站点名称一致</td>
+                </tr>
+
+
+                <tr class="jq_type_qcloudsms">
+                	<td class="admin-table-right profit" colspan="2"> 下面是大于【腾讯云】配置，申请链接：https://cloud.tencent.com/product/sms 企业认证直接送100条</td>
+                </tr>
+
+                <tr class="jq_type_qcloudsms">
+                    <td class="admin-table-left">腾讯云短信签名：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[qcloudsms_sign]" value="{$CONFIG.sms.qcloudsms_sign}"  class="admin-sc-add-text-name w120"/>
+                        <code>填写您在腾讯云上面申请的签名</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_qcloudsms">
+                    <td class="admin-table-left">电话国家编码：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[nationCode]" value="{$CONFIG.sms.nationCode}"  class="admin-sc-add-text-name w80"/>
+                        <code>不填写默认为86中国，如果您在美国，需要联系腾讯云客服开通此功能，默认填写86，留空则程序自动判断86</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_qcloudsms">
+                    <td class="admin-table-left">腾讯云短信：</td>
+                    <td class="admin-table-right">
+                    appid: <input type="text" name="data[qcloudsms_appid]" value="{$CONFIG.sms.qcloudsms_appid}" class="admin-sc-add-text-name"/>
+                    appkey: <input type="text" name="data[qcloudsms_appkey]" value="{$CONFIG.sms.qcloudsms_appkey}" class="admin-sc-add-text-name"/>
+                    <code>腾讯云短信配置信息，不要有前后空格</code></td>
+                </tr>
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认保存" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+<script>
+$(document).ready(function(){
+    $(".jq_type").change(function(){
+	  var name = $(this).val();
+      if(name == 'dy'){
+          $(".jq_type_dy").show();
+          $(".jq_type_bo").hide();
+		  $(".jq_type_qcloudsms").hide();
+		  $(".jq_type_ihuyi").hide();
+      }else if(name == 'bo'){
+          $(".jq_type_dy").hide();
+          $(".jq_type_bo").show();
+		  $(".jq_type_qcloudsms").hide();
+		  $(".jq_type_ihuyi").hide();
+      }else if(name == 'qcloudsms'){
+          $(".jq_type_dy").hide();
+          $(".jq_type_bo").hide();
+		  $(".jq_type_qcloudsms").show();
+		  $(".jq_type_ihuyi").hide();
+      }else if(name == 'ihuyi'){
+          $(".jq_type_dy").hide();
+          $(".jq_type_bo").hide();
+		  $(".jq_type_qcloudsms").hide();
+		  $(".jq_type_ihuyi").show();
+      }
+   });
+   $(".jq_type").change();
+});
+</script>
+{include  file='public:footer'/}

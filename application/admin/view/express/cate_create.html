@@ -1,0 +1,118 @@
+{include  file='public:header'}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">快递公司</li>
+        <li class="li2 li3">添加快递公司</li>
+    </ul>
+</div>
+
+
+<style>
+.admin-table-left{width: 200px;}
+.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC; }
+</style>
+
+<p class="admin-attention"><span>说明：</span> 添加快递公司，请采用加价模式，折扣模式的话，快递接口查询的数据跟预下单数据不一致，就会导致用户查询快递费跟下单快递费不一致</p>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="x-frame" action="{:url('express/cate_create',array('parent_id'=>$parent_id))}" method="post">
+            <div class="admin-main-sc-add">
+                <div class="admin-table-box">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                          <tr>
+                            <td class="admin-table-left" >API接口选择：</td>
+                            <td class="admin-table-right">
+                                <select name="data[type]" class="admin-sele-Fl jq_type" style="display: inline-block;">
+                                    {volist name="getCompanyApiTypes" id="var"} 
+                                        <option value="{$i}" {eq name="i" value="$detail.type"}selected="selected"{/eq}>{$var}</option>
+                                    {/volist}
+                                </select>
+                                <code>请选择接口</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">易达大写标识符：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin]" value="{$detail.pinyin|default=''}" class="admin-manage-input w160"/>
+                            <code>易达大写标识符：京东:JD 圆通:YTO 申通新:STO-INT 德邦:DOP  极兔:JT 顺丰:SF</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">云洋billType：</td>
+                            <td class="admin-table-right"><input type="text" name="data[pinyin2]" value="{$detail.pinyin2|default=''}" class="admin-manage-input w160"/>
+                            <code>云洋billType：京东:1 圆通:3 申通新:4 德邦:2 极兔:5 顺丰:6 智能：0</code>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="admin-table-left">公司名称：</td>
+                            <td class="admin-table-right"><input type="text" name="data[cate_name]" value="{$detail.cate_name|default=''}" class="admin-manage-input w160"/>
+                            <code>快递公司名称</code>
+                            </td>
+                        </tr>
+                        
+                        
+                    
+                      
+                       
+                       <tr><td class="admin-table-right profit" colspan = "2"> 加价设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">预支付价格加价百分比：</td>
+                            <td class="admin-table-right"><input type="text" name="data[firstPrice]" value="{$detail.firstPrice|default=''}" class="admin-manage-input w80"/>%
+                            <code>预支付价格加价百分比，比如填写30%则相当于30%毛利润</code>
+                            </td>
+                        </tr>
+                        <tr><td class="admin-table-right profit" colspan = "2"> 揽收率设置 </td></tr> 
+                       <tr>
+                            <td class="admin-table-left">48小时揽收率：</td>
+                            <td class="admin-table-right"><input type="text" name="data[lanshou]" value="{$detail.lanshou|default=''}" class="admin-manage-input w80"/>%
+                            <code>留空或者填写0不展示</code>
+                            </td>
+                        </tr>
+                        <tr><td class="admin-table-right profit" colspan = "2"> 会员折扣 </td></tr>
+                        <tr>
+                            <td class="admin-table-left">等级折扣：</td>
+                            <td class="admin-table-right">
+                                {foreach name="ranks" item="var"}
+                                    <code>{$var['rank_name']}</code>
+                                    <input type="hidden" name="options[id][]" value="{$var['rank_id']}">
+                                    <input type="hidden" name="options[rank_id][]" value="{$var['rank_id']}">
+                                    <input type="text" name="options[zhe][]" value="{$var['zhe']}" class="admin-manage-input w80">折【5-10之间的数字】
+                                {/foreach}
+                                <code>折扣大于10不打折，留空不打折，负数不打折，必须是5-10之间的数字，计费规则：平接口返回预支付10元+30%加价费率=13元*会员折扣9.7折=12.61元</code>
+                            </td>
+                        </tr>
+                    
+                        <tr>
+                            <td class="admin-table-left">公司电话：</td>
+                            <td class="admin-table-right"><input type="text" name="data[tel]" value="{$detail.tel|default=''}" class="admin-manage-input w160"/>
+                            <code>公司电话</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">公司说明：</td>
+                            <td class="admin-table-right"><input type="text" name="data[info]" value="{$detail.info|default=''}" class="admin-manage-input w360"/>
+                            <code>公司说明</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="admin-table-left">上传图片</td>
+                            <td class="admin-table-right">
+                            {php}echo tpl_form_field_image('data[photo]',$detail['photo'],$detail['photo'],'photo','',$options = array());{/php}
+                            </td>
+                        </tr> 
+            
+                        <tr>
+                            <td class="admin-table-left">排序：</td>
+                            <td class="admin-table-right"><input type="text" name="data[orderby]" value="{$detail.orderby|default=''}" class="admin-manage-input"/>
+                                <code>数字越小越高</code>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+                <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+            </div>
+        </form>
+    </div>
+</div>  

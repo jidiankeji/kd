@@ -1,0 +1,36 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">模版管理</li>
+        <li class="li2">短信模版</li>
+        <li class="li2 li3">新增模板</li>
+    </ul>
+</div>
+<form  target="x-frame" action="{:url('sms/create')}" method="post">
+    <div class="admin-main-sc-add">
+        <div class="admin-table-box">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left">标签：</td>
+                    <td class="admin-table-right"><input type="text" name="data[sms_key]" value="{$detail.sms_key}" class="admin-manage-input"/>
+                    <code>这里填写您开发模板过程中的标签，请按照规则填写，sms_控制器名称_方法名称_通知对象，比如：sms_fram_order_user</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">说明：</td>
+                    <td class="admin-table-right"><input type="text"  name="data[sms_explain]" value="{$detail.sms_explain}" class="admin-manage-input"/>
+					<code>短信模板的说明，比如填写农家乐用户下单通知</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">模版：</td>
+                    <td class="admin-table-right"><textarea  name="data[sms_tmpl]" cols="80" rows="5" >{$detail.sms_tmpl}</textarea>
+                    <code>模板内容，最后必须带上签名，格式：【{sitename}】</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+{include  file='public:footer'/}      

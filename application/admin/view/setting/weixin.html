@@ -1,0 +1,71 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微信O2O</li>
+        <li class="li2 li3">微信配置</li>
+    </ul>
+</div>
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+
+<div class="admin-main-cate">
+</div>       
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/weixin')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                <tr>
+                    <td class="admin-table-left" width="160" >服务器地址：</td>
+                    <td class="admin-table-right">
+                        {$CONFIG.site.host}/weixin
+                        <code>复制这里地址，不懂登录www.xxxxx.com查看教程qq9792494,,66</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >TOKEN：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[token]" value="{$CONFIG.weixin.token|default=''}" class="admin-sc-add-text-name "/>
+                        <code>32位的MD5值最适合！但是一般不限制！可以随意填写！这个需要配置到微信公共帐号那边</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appid]" value="{$CONFIG.weixin.appid}" class="admin-sc-add-text-name "/>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="admin-table-left" >APPSECRET：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appsecret]" value="{$CONFIG.weixin.appsecret}" class="admin-sc-add-text-name "/>
+                        <code>遇到一些奇怪的状态可重置，注意不要用前后空格</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left" >原始ID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[id]" value="{$CONFIG.weixin.id}" class="admin-sc-add-text-name "/>
+                        <code>在您微信公众号那边可找到，这个可不填写</code>
+                    </td>
+                </tr>
+               
+                <tr class="jq_type_1">
+                    <td class="admin-table-left" >回复内容：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[description]" cols="80" rows="20">{$CONFIG.weixin.description}</textarea>
+                        <code>文字不要太多，不建议超过80字</code>
+                    </td>
+                </tr>
+              
+                </td>
+            </table>
+            <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      

@@ -1,0 +1,318 @@
+{include  file='public:header'/}
+
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用设置</li>
+        <li class="li2 li3">同城小程序配置微信：jintaocms</li>
+    </ul>
+</div>
+
+
+<style>
+	.admin-table-left{width:180px !important;}
+	.profit{text-align:center; color:#000; font-weight:bold; background:#ECECEC;}
+</style>
+
+<div class="admin-main-cate">
+</div>
+
+<div class="admin-main-sc-add">
+    <div class="admin-table-box">
+        <form  target="x-frame" action="{:url('setting/wxapp')}" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+
+            	<tr>
+                  <td class="admin-table-right profit" colspan="2">小程序参数配置微信：jintaocms</td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">小程序appid：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appid]" value="{$CONFIG['wxapp']['appid']}" class="admin-sc-add-text-name w360"/>
+                        <code>小程序appid不要有前后空格</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="admin-table-left">小程序appsecret：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[appsecret]" value="{$CONFIG['wxapp']['appsecret']}" class="admin-sc-add-text-name w360"/>
+                        <code>小程序appsecret不要有前后空格</code>
+                    </td>
+                </tr>
+	
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">【审核的时候基本配置】</td>
+                </tr>
+                
+                <tr>
+                     <td class="admin-table-left">版本选择很关键：</td>
+                     <td class="admin-table-right">
+                     	<label><input type="radio" name="data[model]" {eq name="CONFIG.wxapp.model" value="2"}checked="checked"{/eq} value="2"/>过审版</label>
+                    	<label><input type="radio" name="data[model]" {eq name="CONFIG.wxapp.model" value="1"}checked="checked"{/eq} value="1"/>运营版本</label>
+                        <code>审核时候请选择这里过审版本不显示VIP功能否则审核不会通过</code>
+                      </td>
+			    </tr>
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">地址识别API接口</td>
+                </tr>
+                
+                <tr>
+                     <td class="admin-table-left">版本选择很关键：</td>
+                     <td class="admin-table-right">
+                     	<label><input type="radio" name="data[addr_type]" {eq name="CONFIG.wxapp.addr_type" value="0"}checked="checked"{/eq} value="0"/>免费接口</label>
+                    	<label><input type="radio" name="data[addr_type]" {eq name="CONFIG.wxapp.addr_type" value="1"}checked="checked"{/eq} value="1"/>收费接口</label>
+                        <code>免费接口不填写下面的参数，收费接口看下面说明，如果您有遇见，建议购买收费接口</code>
+                      </td>
+			    </tr>
+               <tr>
+                    <td class="admin-table-left">你自己的AppCode：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[addr_app_code]" value="{$CONFIG['wxapp']['addr_app_code']}" class="admin-sc-add-text-name w360"/>
+                        <code>收费接口网址：https://market.aliyun.com/products/57126001/cmapi00047454.html，不懂加加技术微信tudoucms</code>
+                    </td>
+                </tr> 
+                
+                
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">API接口选择【您如果不启用的接口，不要乱配置参数，留空即可】</td>
+                </tr>
+                 <tr>
+                    <td class="admin-table-left" >API接口选择：</td>
+                    <td class="admin-table-right">
+                        <select name="data[type]" class="admin-sele-Fl jq_type" style="display: inline-block;">
+                            {volist name="getCompanyApiTypes" id="var"} 
+                            	<option value="{$i}" {eq name="i" value="$CONFIG.wxapp.type"}selected="selected"{/eq} >{$var}</option>
+                            {/volist}
+                        </select>
+                        <code>请认真选择接口</code>
+                    </td>
+                </tr>
+                
+                
+				<tr class="jq_type_1">
+                    <td class="admin-table-left">易达API_URL：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yd_url]" value="{$CONFIG['wxapp']['yd_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>易达API_URL https://www.yida178.cn/prod-api/thirdApi/execute【不启用易达留空】技术qq979249466</code>
+                    </td>
+                </tr>
+                
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">易达账户：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yd_name]" value="{$CONFIG['wxapp']['yd_name']}" class="admin-sc-add-text-name w150"/>
+                        <code>易达账户【不启用易达留空】</code>
+                    </td>
+                </tr>
+            	<tr class="jq_type_1">
+                    <td class="admin-table-left">易达密室：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yd_secret]" value="{$CONFIG['wxapp']['yd_secret']}" class="admin-sc-add-text-name w150"/>
+                        <code>易达密室【注意是官方提供的密室并不是易达后台的登录密码】，联系上级微信1：ywznl2003  微信2：ywznl2003 获取【不启用易达留空】技术微信tudoucms</code>
+                    </td>
+                </tr>
+                
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋物流url：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_url]" value="{$CONFIG['wxapp']['yy_url']}" class="admin-sc-add-text-name w460"/>
+                        <code>正式环境：https://api.yunyangwl.com/api/wuliu/openService 测试环境：https://api.yunyangwl.com/api/sandbox/openService【不启用云洋留空】</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋物流APPID：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_appid]" value="{$CONFIG['wxapp']['yy_appid']}" class="admin-sc-add-text-name w300"/>
+                        <code>云洋物流平台方提供的独立的appid，作为唯一接入认证标识【不启用云洋留空】</code>
+                    </td>
+                </tr>
+                
+            	 <tr class="jq_type_2">
+                    <td class="admin-table-left">云洋物流云洋物流secretKey：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[yy_secretKey]" value="{$CONFIG['wxapp']['yy_secretKey']}" class="admin-sc-add-text-name w300"/>
+                        <code>每个appid对应一个secretKey，用于计算签名。务必妥善保管secret，避免泄密【不启用云洋留空】</code>
+                    </td>
+                </tr>
+                
+              
+            
+                
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">加价设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">首重价格：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[firstPrice]" value="{$CONFIG['wxapp']['firstPrice']}" class="admin-sc-add-text-name w80"/>元
+                        <code>首重价格</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">续重价格：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[addPrice]" value="{$CONFIG['wxapp']['addPrice']}" class="admin-sc-add-text-name w80"/>元
+                        <code>续重价格</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">限重首重价格：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[limitFirstPrice]" value="{$CONFIG['wxapp']['limitFirstPrice']}" class="admin-sc-add-text-name w80"/>元
+                        <code>限重首重价格</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">限重续重价格：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[limitAddPrice]" value="{$CONFIG['wxapp']['limitAddPrice']}" class="admin-sc-add-text-name w80"/>元
+                        <code>限重续重价格</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">保价费率</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">保价费率：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[baojia_rate]" value="{$CONFIG['wxapp']['baojia_rate']}" class="admin-sc-add-text-name w80">
+                        <code>不填写为0.005一般快递公司都差不多有上浮下浮，方便计算，就取一个中间值，如果你想赚钱，设置0.01就算非常高的了</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">运费计算规则说明</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明1：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_1]" value="{$CONFIG['wxapp']['first_gz_1']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明1</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明2：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_2]" value="{$CONFIG['wxapp']['first_gz_2']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明2</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明3：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_3]" value="{$CONFIG['wxapp']['first_gz_3']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明3</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明4：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_4]" value="{$CONFIG['wxapp']['first_gz_4']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明4</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明5：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_5]" value="{$CONFIG['wxapp']['first_gz_5']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明5</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">规则说明6：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[first_gz_6]" value="{$CONFIG['wxapp']['first_gz_6']}" class="admin-sc-add-text-name w460">
+                        <code>规则说明6</code>
+                    </td>
+                </tr>
+                
+				<tr>
+                  <td class="admin-table-right profit" colspan="2">小程序页面常用设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">关注我们引导连接：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[official_account]" value="{$CONFIG['wxapp']['official_account']}" class="admin-sc-add-text-name w360">
+                        <code>关注我们引导连接，用户点击关注跳转的页面，您已可以自己开发一个H5页面链接或者链接到您的公众号文章进行引导关注</code>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="admin-table-left">下单页面提示语：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[tip1]" cols="80" rows="5">{$CONFIG.wxapp.tip1}</textarea>
+                        <code>下单页面提示语  页面链接pages/delivery/delivery</code>
+                    </td>
+                </tr>
+               	<tr>
+                	<td class="admin-table-right profit" colspan="2"> 弹窗设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">是否开启弹窗：</td>
+                    <td class="admin-table-right">
+                    <label><input type="radio" name="data[defendpop]" {eq name="CONFIG.wxapp.defendpop" value="1"}checked="checked"{/eq} value="1"/>开启</label>
+                    <label><input type="radio" name="data[defendpop]" {eq name="CONFIG.wxapp.defendpop" value="0"}checked="checked"{/eq}  value="0"/>关闭</label>
+                    <code>是否开启弹窗</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">弹窗标题：</td>
+                    <td class="admin-table-right">
+                        <input type="text" name="data[defendpop_title]" value="{$CONFIG['wxapp']['defendpop_title']}" class="admin-sc-add-text-name w360">
+                        <code>弹窗标题</code>
+                    </td>
+                </tr> 
+               <tr>
+                    <td class="admin-table-left">弹窗内容：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[defendpop_info]" cols="50" rows="5">{$CONFIG.wxapp.defendpop_info}</textarea>
+                        <code>弹窗内容</code>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="admin-table-right profit" colspan="2">其他设置</td>
+                </tr>
+                <tr>
+                    <td class="admin-table-left">快递服务协议：</td>
+                    <td class="admin-table-right">
+                        <textarea name="data[xieyi]" cols="80" rows="10">{$CONFIG.wxapp.xieyi}</textarea>
+                        <code>备用，暂时没用，协议在文章里面，快递服务协议</code>
+                    </td>
+                </tr>
+
+            </table>
+        <div class="admin-small-qr"><input type="submit" value="确认添加" class="admin-btn-small-quren"/></div>
+    </div>
+</form>
+
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+	$(".jq_type").change(function (){
+		if($(this).val() == 1){
+			$(".jq_type_1").show();
+			$(".jq_type_2").hide();
+			$(".jq_type_3").hide();
+		}else if($(this).val() == 2){
+			$(".jq_type_1").hide();
+			$(".jq_type_2").show();
+			$(".jq_type_3").hide();
+		}else{
+			$(".jq_type_1").hide();
+			$(".jq_type_2").hide();
+			$(".jq_type_3").show();
+		}
+	});
+	$(".jq_type").change();
+});
+</script>
+<script src="/static/default/wap/js/index.js"></script>
+{include  file='public:footer'/}
+
+

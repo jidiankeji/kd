@@ -1,0 +1,39 @@
+<script src="/public/js/clipboard.min.js"></script>
+
+<br><code style="color:#F00">==系统功能菜单==</code><br>
+<code>寄省内：/pages/delivery/delivery?type=3</code><a class="clipboard_btn" data-clipboard-text="/pages/delivery/delivery?type=3"><b style="color:#06F">[复制]</b></a><br>
+<code>寄得物：/pages/delivery/delivery?type=2</code><a class="clipboard_btn" data-clipboard-text="/pages/delivery/delivery?type=2"><b style="color:#06F">[复制]</b></a><br>
+<code>寄顺丰：/pages/delivery/delivery?type=3&cate_id=6</code><a class="clipboard_btn" data-clipboard-text="/pages/delivery/delivery?type=3&cate_id=6"><b style="color:#06F">[复制]</b></a><br>
+<code>寄德邦：/pages/delivery/delivery?type=3&cate_id=2</code><a class="clipboard_btn" data-clipboard-text="/pages/delivery/delivery?type=3&cate_id=2"><b style="color:#06F">[复制]</b></a><br>
+<code>运费查询：/pages/member/freight/freight</code><a class="clipboard_btn" data-clipboard-text="/pages/member/freight/freight"><b style="color:#06F">[复制]</b></a><br>
+<code>意见反馈：/pages/member/suggest/suggest</code><a class="clipboard_btn" data-clipboard-text="/pages/member/suggest/suggest"><b style="color:#06F">[复制]</b></a><br>
+<code>分享海报：/pages/member/invite/invite</code><a class="clipboard_btn" data-clipboard-text="/pages/member/invite/invite"><b style="color:#06F">[复制]</b></a><br>
+<code>赚积分：/subpages/pages/integral/integral</code><a class="clipboard_btn" data-clipboard-text="/subpages/pages/integral/integral"><b style="color:#06F">[复制]</b></a><br>
+<code>看视频领积分：/pages/coupon/index</code><a class="clipboard_btn" data-clipboard-text="/pages/coupon/index"><b style="color:#06F">[复制]</b></a><br>
+<code>寄件地址：/pages/member/address/address?type=1</code><a class="clipboard_btn" data-clipboard-text="/pages/member/address/address?type=1"><b style="color:#06F">[复制]</b></a><br>
+<code>收件地址：/pages/member/address/address?type=2</code><a class="clipboard_btn" data-clipboard-text="/pages/member/address/address?type=2"><b style="color:#06F">[复制]</b></a><br>
+<code>超重补差：/pages/member/refund/refund</code><a class="clipboard_btn" data-clipboard-text="/pages/member/refund/refund"><b style="color:#06F">[复制]</b></a><br>
+<code>返佣中心：/pages/member/rake-back/rake-back</code><a class="clipboard_btn" data-clipboard-text="/pages/member/rake-back/rake-back"><b style="color:#06F">[复制]</b></a><br>
+<code>会员余额：/pages/member/remain/remain</code><a class="clipboard_btn" data-clipboard-text="/pages/member/remain/remain"><b style="color:#06F">[复制]</b></a><br>
+<code>会员充值：/pages/member/recharge/recharge</code><a class="clipboard_btn" data-clipboard-text="/pages/member/recharge/recharge"><b style="color:#06F">[复制]</b></a><br>
+<code>会员提现：/pages/member/withdraw/withdraw</code><a class="clipboard_btn" data-clipboard-text="/pages/member/withdraw/withdraw"><b style="color:#06F">[复制]</b></a><br>
+<code>小程序跳转：/pages/mini/shun?id=1&appId=【appid】&path=【路径】</code><a class="clipboard_btn" data-clipboard-text="/pages/mini/shun?id=1&appId=【appid】&path=【路径】"><b style="color:#06F">[复制]</b></a><br>
+<code>站外链接：/pages/common/content/web?url=您的域名</code><a class="clipboard_btn" data-clipboard-text="/pages/common/content/web?url=您的域"><b style="color:#06F">[复制]</b></a><br>
+
+<script>
+$(function(){
+	var clipboard = new ClipboardJS('.clipboard_btn');
+	clipboard.on('success', function(e) {
+		console.info('Action:', e.action);
+		console.info('Text:', e.text);
+		console.info('Trigger:', e.trigger);
+		e.clearSelection();
+		layer.msg('复制【'+e.text+'】成功', {icon: 1});
+	});
+	clipboard.on('error', function(e) {
+		console.error('Action:', e.action);
+		console.error('Trigger:', e.trigger);
+		layer.msg('复制失败', {icon: 1});
+	});
+});	
+</script>

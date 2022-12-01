@@ -1,0 +1,92 @@
+{include  file='public:header'/}
+<div class="admin-main-bt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+<div class="admin-main-js">
+    <p class="admin-attention"><span>注意：</span>城市站点设置后，启用后前台才能看到该站点，使用高德地图的客户请去添加高德地区编码，如果城市库无法导入请手动添加，百度地区编码跟数据库中编码不一致的时候请注意修改否则导致百度定位失败微信：jintaocms</p>
+    <div class="admin-js-nr">
+        <div class="admin-select-nr" style="margin: 10px 20px;">
+            <div class="left">
+                {:BA('city/create','','添加站点')}
+                {:BA('city/citycode','','百度地区编码')}
+                {:BA('city/areacode','','从城市库导入')}
+                {:BA('city/index','','刷新')}
+            </div>
+            <form method="post" action="{:url('city/index')}">
+                <div class="right">
+                 <div class="admin-sele-k">
+                
+                   <label>
+                          <span>审核状态：</span>
+                          <select class="select w120" name="is_open">
+                          	  <option value="999">请选择状态</option>
+                              <option {eq name="is_open" value="999"}selected="selected"{/eq} value="999">请选择</option>
+                              <option {eq name="is_open" value="0"}selected="selected"{/eq}  value="0">未审核</option>
+                              <option {eq name="is_open" value="1"}selected="selected"{/eq}  value="1">已审核</option>
+                          </select>
+                        </label>
+                    <input type="text" name="keyword" placeholder=" 输入城市名称‘拼音"  value="{$keyword}" class="admin-input-text"/>
+                    <input type="submit" value=" 搜索"  class="admin-input-button"/>
+                </div>
+                
+                </div>
+            </form>
+        </div>
+        <form target="x-frame" method="post">
+            <div class="admin-table-box">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style="border-collapse:collapse;margin:0px;vertical-align:middle;background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="city_id"/></td>
+                        <td class="w50">ID</td>
+                        <td>站点名称</td>
+                        <td>城市LOGO</td>
+                        <td>站点拼音</td>
+                        <td>地区数量</td>
+                        <td>审核状态</td>
+                        <td>排序</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    {foreach name="list" item="var"}
+                        <tr>
+                            <td><input class="child_city_id" type="checkbox" name="city_id[]" value="{$var.city_id}"/></td>
+                            <td>{$var.city_id}</td>
+                            <td>{$var.name}</td>
+                            <td>
+                                {if condition="empty($var['photo'])"}
+                                    暂无图片
+                                {else/}
+                                    <img style="width:40px;" src="{:config_img($var['photo'])}"/>
+                                {/if}
+                            </td>
+                            <td>{$var.pinyin}</td>
+                            <td>{$var.area_num}</td>
+                            <td>{eq name="var.is_open" value="0"}未审核{else/}<a style="color:#F00">已审核</a>{/eq}</td>
+                            <td>{$var.orderby}</td>
+                            <td>{$var.create_time|date="Y-m-d H:i:s",###}</td>
+                            <td>
+                            	{:BA('area/index',array("city_id"=>$var["city_id"]),'区域列表','','admin-btn-default')}
+                                {eq name="var.is_open" value="0"}
+                                	{:BA('city/is_open',array("city_id"=>$var["city_id"]),'审核','act','admin-btn-default')}
+                                {/eq}
+                                {:BA('city/edit',array("city_id"=>$var["city_id"]),'编辑','','admin-btn-default')}
+                                {:BA('city/delete',array("city_id"=>$var["city_id"]),'删除','act','admin-btn-default')}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
+                {$page}
+            </div>
+            <div class="admin-select-nr">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include  file='public:footer'/}      
+
